@@ -1,8 +1,23 @@
 <h1>  List of Tasks  </h1>
 
-<ul><% @tasks.each do |t|%>
-  <li><%=link_to t.title, task_path(t) %></li>
+<ul class="list-group"><% @tasks.each do |t|%>
+  <li>
+    <% if t.completed == true %>
+      <i class="fa-regular fa-square-check"></i>
+    <% else %>
+      <i class="fa-regular fa-circle-xmark"></i>
+    <% end %>
+
+
+    <%=link_to t.title, task_path(t) %>
+    <%= link_to edit_path(t), data: :edit do %>
+     <i class="fa-solid fa-pen-to-square"></i>
+    <% end %>
+    <%= link_to task_path(t), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+      <i class="fa-solid fa-trash-can"></i>
+    <% end %>
+  </li>
 <% end %>
 </ul>
 
-<h3><%=link_to "Create new task", tasks_new_path %></h3>
+<button type="button" class="btn btn-outline-primary"><%=link_to "Create new task", tasks_new_path %></button>
